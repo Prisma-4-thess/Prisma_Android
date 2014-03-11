@@ -2,12 +2,34 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:gravity="center"
+                android:paddingTop="100dp"
                 android:layout_height="match_parent">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GEO!!!!"/>
+        android:textStyle="bold|italic"
+        android:textColor="@color/LightSlateGray"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:text="ΑΔΑ"
+        android:id="@+id/ada_text"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/entered_ada"
+        android:hint="Εισάγετε το ΑΔΑ..."
+        android:layout_below="@id/ada_text"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Αναζήτηση"
+        android:id="@+id/button_search"
+        android:layout_below="@+id/entered_ada"
+        android:layout_centerHorizontal="true"/>
+
 
 </RelativeLayout>
