@@ -3,6 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:orientation="vertical"
              android:layout_width="match_parent"
+             android:id="@+id/decision_item_back"
              android:background="@android:color/darker_gray"
              android:layout_height="wrap_content">
 

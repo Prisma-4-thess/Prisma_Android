@@ -1,12 +1,14 @@
 package com.spydi2kood.prisma;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -20,6 +22,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jim on 11/3/2014.
@@ -65,11 +69,13 @@ public class AdaFragment extends android.support.v4.app.ListFragment{
 		values = new ArrayList<HashMap<String, String>>();
 		//			adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item,
 		//					R.id.list_text, values);
-		adaAdapter = new SimpleAdapter(getActivity(), values, R.layout.decision_item, from, to);
+		adaAdapter = new CustomAdaAdapter(getActivity(), values, R.layout.decision_item, from, to);
 		setListAdapter(adaAdapter);
 		new addList().execute(mAct.getsJson());
 		error.setText("No decisions");
 	}
+
+
 
 	private void showDialog() {
 		pDialog = new ProgressDialog(getActivity());
