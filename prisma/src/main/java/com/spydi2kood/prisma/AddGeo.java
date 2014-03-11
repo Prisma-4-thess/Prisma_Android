@@ -21,9 +21,11 @@ import org.json.JSONObject;
 public class AddGeo extends Fragment {
 	private static final String TAG = "addGeo";
 	private ProgressDialog pDialog;
-	AQuery aq;
-	EditText ada;
-	Button buttonSearch;
+	private boolean first_time;
+	private AQuery aq;
+	private EditText ada;
+	private MainActivity mAct;
+	private Button buttonSearch;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,10 +49,18 @@ public class AddGeo extends Fragment {
 		}
 	}
 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		first_time = true;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		if (first_time){
+			mAct = (MainActivity) getActivity();
+		}
 		//		showDialog();
 	}
 
@@ -70,12 +80,14 @@ public class AddGeo extends Fragment {
 
 	public void jsonCallback(String url, JSONObject json, AjaxStatus status) {
 		if (json != null) {
+			mAct.setsJson(json);
+			pDialog.dismiss();
+			mAct.showAdaDecision();
 			Log.d(TAG,json.toString());
 		} else {
 			Log.d(TAG, status.getMessage());
 //			error.setText(status.getMessage());
 		}
-		pDialog.dismiss();
 	}
 
 }
