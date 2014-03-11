@@ -1,8 +1,12 @@
 package com.spydi2kood.prisma;
 
+import android.app.Notification;
 import android.app.ProgressDialog;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -27,10 +33,69 @@ import java.util.HashMap;
 
 public class MainActivity extends ActionBarActivity {
 
+	private String[] mDrawerOptions;
+	private DrawerLayout mDrawerLayout;
+	private ListView mDrawerList;
+	private String[] mTitle = new String[] {"Αναζήτηση","Προσδιορισμός"};
+	private ArrayList<PackageItem> mItem;
+	private ActionBarDrawerToggle mDrawerToggle;
+	private String previousTitle, mDrawerTitle = "Επιλογές";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		previousTitle = mTitle[0];
+
+		mDrawerToggle = new ActionBarDrawerToggle(
+				this,                  /* host Activity */
+				mDrawerLayout,         /* DrawerLayout object */
+				R.drawable.ic_navigation_drawer,  /* nav drawer icon to replace 'Up' caret */
+				R.string.drawer_open,  /* "open drawer" description */
+				R.string.drawer_close  /* "close drawer" description */
+		) {
+
+			/** Called when a drawer has settled in a completely closed state. */
+			public void onDrawerClosed(View view) {
+				super.onDrawerClosed(view);
+				getSupportActionBar().setTitle(previousTitle);
+			}
+
+			/** Called when a drawer has settled in a completely open state. */
+			public void onDrawerOpened(View drawerView) {
+				super.onDrawerOpened(drawerView);
+				previousTitle = getSupportActionBar().getTitle().toString();
+				getSupportActionBar().setTitle(mDrawerTitle);
+			}
+		};
+
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setHomeButtonEnabled(true);
+
+
+		mItem = new ArrayList<PackageItem>();
+		getSupportActionBar().setTitle("Αναζήτηση");
+		for (String opt : mTitle){
+			PackageItem temp = new PackageItem();
+			temp.setName(opt);
+			if (opt.equals("Αναζήτηση")) temp.setIcon(getResources().getDrawable(R.drawable.search_geo));
+			if (opt.equals("Προσδιορισμός")) temp.setIcon(getResources().getDrawable(R.drawable.location_new));
+			mItem.add(temp);
+		}
+
+//		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+//				R.layout.drawer_list_item,R.id.drawer_text, mDrawerOptions));
+
+		mDrawerList.setAdapter(new PackageAdapter(this,mItem));
+
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		mDrawerList.setItemChecked(0, true);
+
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -40,6 +105,31 @@ public class MainActivity extends ActionBarActivity {
 
 	}
 
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView parent, View view, int position, long id) {
+			selectItem(position);
+		}
+
+	}
+
+	private void selectItem(int position) {
+		switch (position){
+			case 0:
+				getSupportFragmentManager().beginTransaction()
+						.replace(R.id.container, new PlaceholderFragment())
+						.addToBackStack(null)
+						.commit();
+				break;
+			case 1:
+				getSupportFragmentManager().beginTransaction()
+						.replace(R.id.container, new AddGeo())
+						.addToBackStack(null)
+						.commit();
+		}
+		previousTitle = mTitle[position];
+		mDrawerLayout.closeDrawer(mDrawerList);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,6 +148,10 @@ public class MainActivity extends ActionBarActivity {
 		if (id == R.id.action_settings) {
 			return true;
 		}
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
+		}
+
 		return super.onOptionsItemSelected(item);
 
 	}
@@ -77,6 +171,18 @@ public class MainActivity extends ActionBarActivity {
 
 		// Commit the transaction
 		transaction.commit();
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
 	public void showDetails(String id) {
