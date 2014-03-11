@@ -225,6 +225,11 @@ public class MainActivity extends ActionBarActivity {
 		transaction.commit();
 	}
 
+	public void updateTitle(String title,int off){
+		getSupportActionBar().setTitle(title);
+		mDrawerList.setItemChecked(off, true);
+	}
+
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
@@ -253,12 +258,15 @@ public class MainActivity extends ActionBarActivity {
 			View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 			aq = new AQuery(getActivity(), rootView);
 			error = (TextView) rootView.findViewById(android.R.id.empty);
+			MainActivity temp = (MainActivity) getActivity();
+			temp.updateTitle("Αναζήτηση",0);
 			return rootView;
 		}
 
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
+
 			if (first_time) {
 				prepareList();
 				showDialog();

@@ -37,6 +37,8 @@ public class AddGeo extends Fragment {
 		buttonSearch = (Button) rootView.findViewById(R.id.button_search);
 		buttonSearch.setOnClickListener(new buttonClickListener());
 		ada = (EditText) rootView.findViewById(R.id.entered_ada);
+		MainActivity temp = (MainActivity) getActivity();
+		temp.updateTitle("Προσδιορισμός",1);
 		return rootView;
 	}
 
