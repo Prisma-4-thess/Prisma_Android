@@ -1,14 +1,17 @@
 package com.spydi2kood.prisma;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
@@ -42,6 +45,12 @@ public class AddGeo extends Fragment {
 		@Override
 		public void onClick(View v) {
 			if (ada.getText().toString() != null) {
+				InputMethodManager inputManager =
+						(InputMethodManager) getActivity().
+								getSystemService(Context.INPUT_METHOD_SERVICE);
+				inputManager.hideSoftInputFromWindow(
+						getActivity().getCurrentFocus().getWindowToken(),
+						InputMethodManager.HIDE_NOT_ALWAYS);
 				String mada = ada.getText().toString();
 				showDialog();
 				serverRequest(mada);
@@ -86,6 +95,8 @@ public class AddGeo extends Fragment {
 			Log.d(TAG,json.toString());
 		} else {
 			Log.d(TAG, status.getMessage());
+			pDialog.dismiss();
+			Toast.makeText(getActivity(),status.getMessage(),Toast.LENGTH_LONG).show();
 //			error.setText(status.getMessage());
 		}
 	}
