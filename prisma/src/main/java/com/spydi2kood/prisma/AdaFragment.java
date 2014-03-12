@@ -101,6 +101,8 @@ public class AdaFragment extends android.support.v4.app.ListFragment{
 					map.put("ada", ada);
 					map.put("subject", subject);
 					map.put("id", id);
+					if (childJSONObject.getBoolean("geo")) map.put("geo", "true");
+					else map.put("geo","false");
 					temp.add(map);
 					Log.d(TAG, "ada = " + ada + " subject: " + subject);
 				}

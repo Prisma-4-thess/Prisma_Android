@@ -58,7 +58,7 @@ public class CustomAdaAdapter extends SimpleAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if (item.get("ada").equals("ΒΙΕ99-Ζ29")){
+		if (item.get("geo").equals("false")){
 			holder.text.setBackgroundResource(R.color.WeakRed);
 			holder.subj.setBackgroundResource(R.color.WeakRed);
 		}
