@@ -8,37 +8,43 @@
 
 
     <ImageView
-        android:layout_width="68dp"
-        android:layout_height="68dp"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
         android:padding="10dp"
         android:layout_marginBottom="10dp"
         android:src="@drawable/search_geo"
         android:background="@drawable/welcome_button_back"
-        android:id="@+id/imageView"
+        android:id="@+id/welcome_button_search"
         android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:layout_marginBottom="40dp"
+        android:text="Search with location"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:layout_marginBottom="70dp"
+        android:textSize="20sp"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"/>
 
     <ImageView
-        android:layout_width="68dp"
-        android:layout_height="68dp"
+        android:layout_width="108dp"
+        android:layout_height="108dp"
         android:padding="10dp"
         android:layout_marginBottom="10dp"
         android:src="@drawable/location_new"
         android:background="@drawable/welcome_button_back"
-        android:id="@+id/imageView2"
+        android:id="@+id/welcome_button_define"
         android:layout_gravity="center_horizontal"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
+        android:text="Define decision's location"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:gravity="center"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>

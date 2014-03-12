@@ -75,6 +75,9 @@ public class MainActivity extends ActionBarActivity {
 			}
 		};
 
+		Intent intent = getIntent();
+		int message = intent.getIntExtra("fragment",0);
+
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,9 +104,16 @@ public class MainActivity extends ActionBarActivity {
 
 
 		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment())
-					.commit();
+			if (message==0){
+				getSupportFragmentManager().beginTransaction()
+						.add(R.id.container, new PlaceholderFragment())
+						.commit();
+			} else if (message==1) {
+				getSupportFragmentManager().beginTransaction()
+						.add(R.id.container, new AddGeo())
+						.commit();
+			}
+
 		}
 
 	}
