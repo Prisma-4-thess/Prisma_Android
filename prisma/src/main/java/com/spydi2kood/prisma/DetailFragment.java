@@ -58,7 +58,7 @@ public class DetailFragment extends Fragment {
 
 		@Override
 		public void onClick(View v) {
-			startActivityForResult(new Intent(getActivity(), SelectLocationActivity.class),1);
+			getActivity().startActivityForResult(new Intent(getActivity(), SelectLocationActivity.class),1);
 		}
 	}
 

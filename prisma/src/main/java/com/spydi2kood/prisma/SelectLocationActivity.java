@@ -1,6 +1,9 @@
 package com.spydi2kood.prisma;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -39,8 +44,11 @@ import java.util.HashMap;
  */
 public class SelectLocationActivity extends ActionBarActivity {
 
+	private static final String TAG = "Select Location Activity";
 	private GoogleMap googleMap;
 	private Marker myMarker;
+	private Boolean predefined;
+	private HashMap<String,String> locDet;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,8 @@ public class SelectLocationActivity extends ActionBarActivity {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
+
+		locDet = new HashMap<String, String>();
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -69,6 +79,10 @@ public class SelectLocationActivity extends ActionBarActivity {
 			googleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
 					R.id.map)).getMap();
 			googleMap.setOnMapLongClickListener(new ListenForLongClick());
+			CameraPosition cameraPosition = new CameraPosition.Builder().target(
+					new LatLng(40.626,22.947)).zoom(10).build();
+
+			googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 			// check if map is created successfully or not
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
@@ -83,11 +97,11 @@ public class SelectLocationActivity extends ActionBarActivity {
 		@Override
 		public void onMapLongClick(LatLng latLng) {
 			if (myMarker!=null) myMarker.remove();
-			MarkerOptions marker = new MarkerOptions().position(latLng).title("Hello Maps ");
+			MarkerOptions marker = new MarkerOptions().position(latLng).title("Νέα Θέση");
 			myMarker = googleMap.addMarker(marker);
-
+			predefined = false;
 			CameraPosition cameraPosition = new CameraPosition.Builder().target(
-					latLng).zoom(12).build();
+					latLng).zoom(18).build();
 
 			googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 		}
@@ -104,23 +118,81 @@ public class SelectLocationActivity extends ActionBarActivity {
 	}
 
 	private void sendNewGeoData() {
-		Toast.makeText(this,"Data Send!",Toast.LENGTH_LONG).show();
-		Intent returnIntent = new Intent();
-		setResult(RESULT_OK, returnIntent);
-		finish();
+		if (myMarker!=null){
+			Intent returnIntent = new Intent();
+			Log.d(TAG,"Latitude: "+Double.toString(myMarker.getPosition().latitude)+" Longitude: "+Double.toString(myMarker.getPosition().longitude));
+			if (predefined){
+//				Toast.makeText(this,"Predefined Location",Toast.LENGTH_LONG).show();
+				returnIntent.putExtra("id",locDet.get("id"));
+				setResult(RESULT_OK, returnIntent);
+				finish();
+			} else {
+//				Toast.makeText(this,"User-defined Location",Toast.LENGTH_LONG).show();
+				uploadLocationInfo();
+			}
+//			Toast.makeText(this,"Data Send!",Toast.LENGTH_LONG).show();
+		} else {
+			Intent returnIntent = new Intent();
+			setResult(RESULT_CANCELED, returnIntent);
+			finish();
+		}
+	}
+
+	public void errorFields(){
+		Toast.makeText(this,"Check fields again!",Toast.LENGTH_LONG).show();
+	}
+
+	private void uploadLocationInfo() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		LayoutInflater inflater = this.getLayoutInflater();
+		final View view = inflater.inflate(R.layout.upload_dialog, null);
+		builder.setView(view)
+				.setPositiveButton(R.string.uploadPassword, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						Intent returnIntent = new Intent();
+						EditText address = (EditText) view.findViewById(R.id.dialog_address);
+						EditText namegrk = (EditText) view.findViewById(R.id.dialog_namegrk);
+						String sAddress = address.getText().toString();
+						String sNamegrk = namegrk.getText().toString();
+						String latitude = Double.toString(myMarker.getPosition().latitude);
+						String longitude = Double.toString(myMarker.getPosition().longitude);
+						if (sNamegrk.equals("") || sAddress.equals("")) {
+							errorFields();
+							return;
+						}
+						returnIntent.putExtra("address", sAddress);
+						returnIntent.putExtra("namegrk", sNamegrk);
+						returnIntent.putExtra("latitude", latitude);
+						returnIntent.putExtra("longitude", longitude);
+						setResult(2, returnIntent);
+						dialog.dismiss();
+						finish();
+					}
+				})
+				.setNegativeButton(R.string.cancelUploadPassword, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
+		Dialog uploadDialog = builder.create();
+		uploadDialog.show();
 	}
 
 
-
-	public void addMarker(double latitude, double longitude){
+	public void addMarker(HashMap<String,String> locDet){
 		if (myMarker!=null) myMarker.remove();
-		MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Hello Maps ");
+		double latitude = Double.parseDouble(locDet.get("latitude"));
+		double longitude = Double.parseDouble(locDet.get("longitude"));
+		String title = locDet.get("namegrk");
+		MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title(title);
 
 		// adding marker
 		myMarker = googleMap.addMarker(marker);
-
+		predefined = true;
+		this.locDet = locDet;
 		CameraPosition cameraPosition = new CameraPosition.Builder().target(
-				new LatLng(latitude, longitude)).zoom(12).build();
+				new LatLng(latitude, longitude)).zoom(16).build();
 
 		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 	}
@@ -274,7 +346,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 			String lat = values.get(position).get("latitude");
 			String lont = values.get(position).get("longitude");
 			Log.d(TAG,lat+" "+lont);
-			mAct.addMarker(Double.parseDouble(lat),Double.parseDouble(lont));
+			mAct.addMarker(values.get(position));
 		}
 
 

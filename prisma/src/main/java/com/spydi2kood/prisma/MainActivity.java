@@ -169,9 +169,22 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		Log.d(TAG,"entered " +requestCode+" "+resultCode);
 		if (requestCode == 1){
 			if (resultCode == RESULT_OK){
 				Log.d(TAG,"All is ok");
+				Log.d(TAG,data.getStringExtra("id"));
+			} else if (resultCode == RESULT_CANCELED){
+				Log.d(TAG,"Nothing is ok");
+			} else if (resultCode == 2) {
+				Log.d(TAG,"User defined");
+				if (data.getStringExtra("address").equals("")){
+					Log.d(TAG,"NULL");
+				}
+				if (data.getStringExtra("namegrk").equals("")){
+					Log.d(TAG,"NULL");
+				}
+				Log.d(TAG,data.getStringExtra("address")+" "+data.getStringExtra("namegrk")+" "+data.getStringExtra("latitude")+" "+data.getStringExtra("longitude")+" ");
 			}
 		}
 	}
