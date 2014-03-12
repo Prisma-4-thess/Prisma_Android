@@ -1,20 +1,17 @@
 package com.spydi2kood.prisma;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxStatus;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,13 +19,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by jim on 11/3/2014.
  */
-public class AdaFragment extends android.support.v4.app.ListFragment{
+public class AdaFragment extends android.support.v4.app.ListFragment {
 	private static final String TAG = "AdaFragment";
 	private AQuery aq;
 	private ArrayList<HashMap<String, String>> values;
@@ -76,7 +71,6 @@ public class AdaFragment extends android.support.v4.app.ListFragment{
 	}
 
 
-
 	private void showDialog() {
 		pDialog = new ProgressDialog(getActivity());
 		pDialog.setMessage("Loading. Please wait...");
@@ -102,7 +96,7 @@ public class AdaFragment extends android.support.v4.app.ListFragment{
 					map.put("subject", subject);
 					map.put("id", id);
 					if (childJSONObject.getBoolean("geo")) map.put("geo", "true");
-					else map.put("geo","false");
+					else map.put("geo", "false");
 					temp.add(map);
 					Log.d(TAG, "ada = " + ada + " subject: " + subject);
 				}
@@ -133,7 +127,7 @@ public class AdaFragment extends android.support.v4.app.ListFragment{
 		// do something with the data
 		Log.d(TAG, "Item " + position + " pressed! Ada: " + values.get(position).get("ada"));
 		MainActivity temp = (MainActivity) getActivity();
-		temp.showDetails(values.get(position).get("id"),1);
+		temp.showDetails(values.get(position).get("id"), 1);
 	}
 
 }

@@ -26,6 +26,7 @@
         android:layout_marginTop="4dp"
         android:fontFamily="sans-serif"
         android:hint="@string/dialog_namegrk"/>
+
     <EditText
         android:id="@+id/dialog_address"
         android:textSize="18sp"

@@ -38,7 +38,7 @@ public class AddGeo extends Fragment {
 		buttonSearch.setOnClickListener(new buttonClickListener());
 		ada = (EditText) rootView.findViewById(R.id.entered_ada);
 		MainActivity temp = (MainActivity) getActivity();
-		temp.updateTitle("Προσδιορισμός",1);
+		temp.updateTitle("Προσδιορισμός", 1);
 		return rootView;
 	}
 
@@ -69,7 +69,7 @@ public class AddGeo extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		if (first_time){
+		if (first_time) {
 			mAct = (MainActivity) getActivity();
 		}
 		//		showDialog();
@@ -94,12 +94,12 @@ public class AddGeo extends Fragment {
 			mAct.setsJson(json);
 			pDialog.dismiss();
 			mAct.showAdaDecision();
-			Log.d(TAG,json.toString());
+			Log.d(TAG, json.toString());
 		} else {
 			Log.d(TAG, status.getMessage());
 			pDialog.dismiss();
-			Toast.makeText(getActivity(),status.getMessage(),Toast.LENGTH_LONG).show();
-//			error.setText(status.getMessage());
+			Toast.makeText(getActivity(), status.getMessage(), Toast.LENGTH_LONG).show();
+			//			error.setText(status.getMessage());
 		}
 	}
 

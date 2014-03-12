@@ -1,11 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.spydi2kood.prisma.MainActivity" >
-    
-    <item android:id="@+id/accept_location"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.spydi2kood.prisma.MainActivity">
+
+    <item
+        android:id="@+id/accept_location"
         android:title="@string/accept_location"
         android:icon="@drawable/ic_action_1394668693_accept"
         android:orderInCategory="100"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 </menu>

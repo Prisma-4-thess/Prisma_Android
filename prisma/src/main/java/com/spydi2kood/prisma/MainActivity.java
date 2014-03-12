@@ -1,23 +1,20 @@
 package com.spydi2kood.prisma;
 
-import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -38,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
 	private String[] mDrawerOptions;
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
-	private String[] mTitle = new String[] {"Αναζήτηση","Προσδιορισμός"};
+	private String[] mTitle = new String[]{"Αναζήτηση", "Προσδιορισμός"};
 	private ArrayList<PackageItem> mItem;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private String previousTitle, mDrawerTitle = "Επιλογές";
@@ -76,7 +73,7 @@ public class MainActivity extends ActionBarActivity {
 		};
 
 		Intent intent = getIntent();
-		int message = intent.getIntExtra("fragment",0);
+		int message = intent.getIntExtra("fragment", 0);
 
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -86,7 +83,7 @@ public class MainActivity extends ActionBarActivity {
 
 		mItem = new ArrayList<PackageItem>();
 		getSupportActionBar().setTitle("Αναζήτηση");
-		for (String opt : mTitle){
+		for (String opt : mTitle) {
 			PackageItem temp = new PackageItem();
 			temp.setName(opt);
 			if (opt.equals("Αναζήτηση")) temp.setIcon(getResources().getDrawable(R.drawable.search_geo));
@@ -94,21 +91,21 @@ public class MainActivity extends ActionBarActivity {
 			mItem.add(temp);
 		}
 
-//		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-//				R.layout.drawer_list_item,R.id.drawer_text, mDrawerOptions));
+		//		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+		//				R.layout.drawer_list_item,R.id.drawer_text, mDrawerOptions));
 
-		mDrawerList.setAdapter(new PackageAdapter(this,mItem));
+		mDrawerList.setAdapter(new PackageAdapter(this, mItem));
 
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		mDrawerList.setItemChecked(0, true);
 
 
 		if (savedInstanceState == null) {
-			if (message==0){
+			if (message == 0) {
 				getSupportFragmentManager().beginTransaction()
 						.add(R.id.container, new PlaceholderFragment())
 						.commit();
-			} else if (message==1) {
+			} else if (message == 1) {
 				getSupportFragmentManager().beginTransaction()
 						.add(R.id.container, new AddGeo())
 						.commit();
@@ -135,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void selectItem(int position) {
-		switch (position){
+		switch (position) {
 			case 0:
 				getSupportFragmentManager().beginTransaction()
 						.replace(R.id.container, new PlaceholderFragment())
@@ -169,22 +166,22 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		Log.d(TAG,"entered " +requestCode+" "+resultCode);
-		if (requestCode == 1){
-			if (resultCode == RESULT_OK){
-				Log.d(TAG,"All is ok");
-				Log.d(TAG,data.getStringExtra("id"));
-			} else if (resultCode == RESULT_CANCELED){
-				Log.d(TAG,"Nothing is ok");
+		Log.d(TAG, "entered " + requestCode + " " + resultCode);
+		if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				Log.d(TAG, "All is ok");
+				Log.d(TAG, data.getStringExtra("id"));
+			} else if (resultCode == RESULT_CANCELED) {
+				Log.d(TAG, "Nothing is ok");
 			} else if (resultCode == 2) {
-				Log.d(TAG,"User defined");
-				if (data.getStringExtra("address").equals("")){
-					Log.d(TAG,"NULL");
+				Log.d(TAG, "User defined");
+				if (data.getStringExtra("address").equals("")) {
+					Log.d(TAG, "NULL");
 				}
-				if (data.getStringExtra("namegrk").equals("")){
-					Log.d(TAG,"NULL");
+				if (data.getStringExtra("namegrk").equals("")) {
+					Log.d(TAG, "NULL");
 				}
-				Log.d(TAG,data.getStringExtra("address")+" "+data.getStringExtra("namegrk")+" "+data.getStringExtra("latitude")+" "+data.getStringExtra("longitude")+" ");
+				Log.d(TAG, data.getStringExtra("address") + " " + data.getStringExtra("namegrk") + " " + data.getStringExtra("latitude") + " " + data.getStringExtra("longitude") + " ");
 			}
 		}
 	}
@@ -237,7 +234,7 @@ public class MainActivity extends ActionBarActivity {
 		Bundle args = new Bundle();
 		args.putString(DetailFragment.PID, id);
 		newFragment.setArguments(args);
-		if (temp==1) args.putBoolean("geo",true);
+		if (temp == 1) args.putBoolean("geo", true);
 
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -250,7 +247,7 @@ public class MainActivity extends ActionBarActivity {
 		transaction.commit();
 	}
 
-	public void updateTitle(String title,int off){
+	public void updateTitle(String title, int off) {
 		getSupportActionBar().setTitle(title);
 		mDrawerList.setItemChecked(off, true);
 	}
@@ -284,7 +281,7 @@ public class MainActivity extends ActionBarActivity {
 			aq = new AQuery(getActivity(), rootView);
 			error = (TextView) rootView.findViewById(android.R.id.empty);
 			MainActivity temp = (MainActivity) getActivity();
-			temp.updateTitle("Αναζήτηση",0);
+			temp.updateTitle("Αναζήτηση", 0);
 			return rootView;
 		}
 
@@ -314,8 +311,8 @@ public class MainActivity extends ActionBarActivity {
 		}
 
 		private void prepareList() {
-			String[] from = new String[]{"namegrk", "id"};
-			int[] to = new int[]{R.id.list_text, R.id.list_id};
+			String[] from = new String[]{"namegrk", "counter", "address"};
+			int[] to = new int[]{R.id.list_text, R.id.list_id, R.id.main_list_address};
 			values = new ArrayList<HashMap<String, String>>();
 			//			adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item,
 			//					R.id.list_text, values);
@@ -348,13 +345,17 @@ public class MainActivity extends ActionBarActivity {
 						String id = childJSONObject.getString("id");
 						Double lat = childJSONObject.getDouble("latitude");
 						Double lont = childJSONObject.getDouble("longitude");
+						String counter = childJSONObject.getString("counter");
+						String address = childJSONObject.getString("address");
 						//						if (Math.abs(lat - 40.60681615178682) < 0.01 && Math.abs(lont - 22.982468830602212) < 0.01) {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.put("namegrk", namegrk);
 						map.put("id", id);
-						map.put("latitute",lat.toString());
-						map.put("longitude",lont.toString());
-						if (childJSONObject.getInt("counter")>0) temp.add(map);
+						map.put("latitute", lat.toString());
+						map.put("longitude", lont.toString());
+						map.put("counter", counter);
+						map.put("address", address);
+						temp.add(map);
 						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
 						//						}
 					}
@@ -388,7 +389,6 @@ public class MainActivity extends ActionBarActivity {
 			MainActivity temp = (MainActivity) getActivity();
 			temp.showDecision(values.get(position).get("id"));
 		}
-
 
 	}
 

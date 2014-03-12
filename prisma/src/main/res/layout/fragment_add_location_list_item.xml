@@ -3,7 +3,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:id="@+id/decision_item_back"
                 android:background="@android:color/darker_gray"
                 android:layout_height="wrap_content">
 
@@ -15,24 +14,12 @@
         android:textSize="18sp"
         android:layout_marginRight="5dp"
         android:paddingLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp"
         android:id="@+id/list_text"
         android:gravity="center_vertical"
         android:background="@android:color/white"
-        android:layout_height="@android:dimen/app_icon_size"/>
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_below="@id/list_text"
-        android:textStyle="italic"
-        android:textSize="14sp"
-        android:layout_marginRight="5dp"
-        android:paddingLeft="10dp"
-        android:id="@+id/dec_sub"
-        android:gravity="center_vertical"
-        android:background="@android:color/white"
-        android:paddingBottom="5dp"
-        android:layout_marginBottom="5dp"
         android:layout_height="wrap_content"/>
 
 

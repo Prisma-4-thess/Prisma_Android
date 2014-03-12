@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.spydiko.sqlite.MainActivity$PlaceholderFragment">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.spydiko.sqlite.MainActivity$PlaceholderFragment">
 
     <ListView
         android:layout_width="fill_parent"
@@ -11,16 +11,17 @@
         android:divider="@android:color/transparent"
         android:visibility="gone"
         android:id="@id/android:list">
-        </ListView>
+    </ListView>
 
-    <TextView android:id="@id/android:empty"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:textStyle="bold"
-              android:textSize="30sp"
-              android:gravity="center_vertical|center_horizontal"
-              android:background="@android:color/darker_gray"
-              android:layout_below="@id/android:list"/>
+    <TextView
+        android:id="@id/android:empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/android:list"/>
 
 
 </RelativeLayout>

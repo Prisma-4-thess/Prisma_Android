@@ -9,9 +9,10 @@ import android.widget.ImageView;
 /**
  * Created by jim on 12/3/2014.
  */
-public class WelcomeActivity extends ActionBarActivity{
-	private ImageView search,define;
+public class WelcomeActivity extends ActionBarActivity {
+	private ImageView search, define;
 	private Intent intent;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,14 +23,14 @@ public class WelcomeActivity extends ActionBarActivity{
 		search.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				intent.putExtra("fragment",0);
+				intent.putExtra("fragment", 0);
 				startActivity(intent);
 			}
 		});
 		define.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				intent.putExtra("fragment",1);
+				intent.putExtra("fragment", 1);
 				startActivity(intent);
 			}
 		});

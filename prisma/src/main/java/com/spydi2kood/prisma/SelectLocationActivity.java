@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -25,7 +24,6 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -48,7 +46,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 	private GoogleMap googleMap;
 	private Marker myMarker;
 	private Boolean predefined;
-	private HashMap<String,String> locDet;
+	private HashMap<String, String> locDet;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +55,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 
 		try {
 			initilizeMap();
-		} catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -67,9 +65,9 @@ public class SelectLocationActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.location_list, new PlaceholderFragment())
 					.commit();
-//			getSupportFragmentManager().beginTransaction()
-//					.add(R.id.location_map, new MapFragment())
-//					.commit();
+			//			getSupportFragmentManager().beginTransaction()
+			//					.add(R.id.location_map, new MapFragment())
+			//					.commit();
 		}
 
 	}
@@ -80,7 +78,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 					R.id.map)).getMap();
 			googleMap.setOnMapLongClickListener(new ListenForLongClick());
 			CameraPosition cameraPosition = new CameraPosition.Builder().target(
-					new LatLng(40.626,22.947)).zoom(10).build();
+					new LatLng(40.626, 22.947)).zoom(10).build();
 
 			googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 			// check if map is created successfully or not
@@ -92,11 +90,11 @@ public class SelectLocationActivity extends ActionBarActivity {
 		}
 	}
 
-	private class ListenForLongClick implements GoogleMap.OnMapLongClickListener{
+	private class ListenForLongClick implements GoogleMap.OnMapLongClickListener {
 
 		@Override
 		public void onMapLongClick(LatLng latLng) {
-			if (myMarker!=null) myMarker.remove();
+			if (myMarker != null) myMarker.remove();
 			MarkerOptions marker = new MarkerOptions().position(latLng).title("Νέα Θέση");
 			myMarker = googleMap.addMarker(marker);
 			predefined = false;
@@ -111,7 +109,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 		double latitude = myMarker.getPosition().latitude;
 		double longitude = myMarker.getPosition().longitude;
 		PlaceholderFragment fragment = (PlaceholderFragment) getSupportFragmentManager().findFragmentById(R.id.location_list);
-		fragment.changeList(latitude,longitude);
+		fragment.changeList(latitude, longitude);
 	}
 
 	@Override
@@ -125,19 +123,19 @@ public class SelectLocationActivity extends ActionBarActivity {
 	}
 
 	private void sendNewGeoData() {
-		if (myMarker!=null){
+		if (myMarker != null) {
 			Intent returnIntent = new Intent();
-			Log.d(TAG,"Latitude: "+Double.toString(myMarker.getPosition().latitude)+" Longitude: "+Double.toString(myMarker.getPosition().longitude));
-			if (predefined){
-//				Toast.makeText(this,"Predefined Location",Toast.LENGTH_LONG).show();
-				returnIntent.putExtra("id",locDet.get("id"));
+			Log.d(TAG, "Latitude: " + Double.toString(myMarker.getPosition().latitude) + " Longitude: " + Double.toString(myMarker.getPosition().longitude));
+			if (predefined) {
+				//				Toast.makeText(this,"Predefined Location",Toast.LENGTH_LONG).show();
+				returnIntent.putExtra("id", locDet.get("id"));
 				setResult(RESULT_OK, returnIntent);
 				finish();
 			} else {
-//				Toast.makeText(this,"User-defined Location",Toast.LENGTH_LONG).show();
+				//				Toast.makeText(this,"User-defined Location",Toast.LENGTH_LONG).show();
 				uploadLocationInfo();
 			}
-//			Toast.makeText(this,"Data Send!",Toast.LENGTH_LONG).show();
+			//			Toast.makeText(this,"Data Send!",Toast.LENGTH_LONG).show();
 		} else {
 			Intent returnIntent = new Intent();
 			setResult(RESULT_CANCELED, returnIntent);
@@ -145,8 +143,8 @@ public class SelectLocationActivity extends ActionBarActivity {
 		}
 	}
 
-	public void errorFields(){
-		Toast.makeText(this,"Check fields again!",Toast.LENGTH_LONG).show();
+	public void errorFields() {
+		Toast.makeText(this, "Check fields again!", Toast.LENGTH_LONG).show();
 	}
 
 	private void uploadLocationInfo() {
@@ -187,8 +185,8 @@ public class SelectLocationActivity extends ActionBarActivity {
 	}
 
 
-	public void addMarker(HashMap<String,String> locDet){
-		if (myMarker!=null) myMarker.remove();
+	public void addMarker(HashMap<String, String> locDet) {
+		if (myMarker != null) myMarker.remove();
 		double latitude = Double.parseDouble(locDet.get("latitude"));
 		double longitude = Double.parseDouble(locDet.get("longitude"));
 		String title = locDet.get("namegrk");
@@ -238,12 +236,12 @@ public class SelectLocationActivity extends ActionBarActivity {
 		public PlaceholderFragment() {
 		}
 
-		public void changeList(double latitude, double longitude){
+		public void changeList(double latitude, double longitude) {
 			values.clear();
-			for (HashMap<String,String> item : allValues){
+			for (HashMap<String, String> item : allValues) {
 				double lat = Double.parseDouble(item.get("latitude"));
 				double lont = Double.parseDouble(item.get("longitude"));
-				if (Math.abs(lat-latitude)<0.001 && Math.abs(lont-longitude)<0.001){
+				if (Math.abs(lat - latitude) < 0.001 && Math.abs(lont - longitude) < 0.001) {
 					values.add(item);
 				}
 			}
@@ -292,13 +290,13 @@ public class SelectLocationActivity extends ActionBarActivity {
 		}
 
 		private void prepareList() {
-			String[] from = new String[]{"namegrk", "id"};
-			int[] to = new int[]{R.id.list_text, R.id.list_id};
+			String[] from = new String[]{"namegrk"};
+			int[] to = new int[]{R.id.list_text};
 			values = new ArrayList<HashMap<String, String>>();
 			allValues = new ArrayList<HashMap<String, String>>();
 			//			adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item,
 			//					R.id.list_text, values);
-			geoAdapter = new SimpleAdapter(getActivity(), values, R.layout.list_item, from, to);
+			geoAdapter = new SimpleAdapter(getActivity(), values, R.layout.fragment_add_location_list_item, from, to);
 			setListAdapter(geoAdapter);
 		}
 
@@ -331,10 +329,10 @@ public class SelectLocationActivity extends ActionBarActivity {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.put("namegrk", namegrk);
 						map.put("id", id);
-						map.put("latitude",lat.toString());
-						map.put("longitude",lont.toString());
+						map.put("latitude", lat.toString());
+						map.put("longitude", lont.toString());
 						temp.add(map);
-//						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
+						//						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
 						//						}
 					}
 					updateList(temp);
@@ -367,7 +365,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 			Log.d(TAG, "Item " + position + " pressed!");
 			String lat = values.get(position).get("latitude");
 			String lont = values.get(position).get("longitude");
-			Log.d(TAG,lat+" "+lont);
+			Log.d(TAG, lat + " " + lont);
 			mAct.addMarker(values.get(position));
 		}
 

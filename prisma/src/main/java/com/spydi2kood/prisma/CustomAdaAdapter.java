@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -14,8 +13,8 @@ import java.util.HashMap;
 /**
  * Created by jim on 11/3/2014.
  */
-public class CustomAdaAdapter extends SimpleAdapter{
-	private ArrayList<HashMap<String,String>> data;
+public class CustomAdaAdapter extends SimpleAdapter {
+	private ArrayList<HashMap<String, String>> data;
 	private Context context;
 
 	/**
@@ -39,13 +38,13 @@ public class CustomAdaAdapter extends SimpleAdapter{
 	}
 
 	@Override
-	public HashMap<String,String> getItem(int position) {
+	public HashMap<String, String> getItem(int position) {
 		return data.get(position);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		final HashMap<String,String> item = getItem(position);
+		final HashMap<String, String> item = getItem(position);
 		ViewHolder holder;
 		if (convertView == null) {
 			LayoutInflater li = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -58,11 +57,10 @@ public class CustomAdaAdapter extends SimpleAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		if (item.get("geo").equals("false")){
+		if (item.get("geo").equals("false")) {
 			holder.text.setBackgroundResource(R.color.WeakRed);
 			holder.subj.setBackgroundResource(R.color.WeakRed);
-		}
-		else{
+		} else {
 			holder.text.setBackgroundResource(R.color.WeakGreen);
 			holder.subj.setBackgroundResource(R.color.WeakGreen);
 		}

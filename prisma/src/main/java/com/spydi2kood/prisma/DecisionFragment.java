@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -148,7 +146,7 @@ public class DecisionFragment extends ListFragment {
 		// do something with the data
 		Log.d(TAG, "Item " + position + " pressed! Ada: " + values.get(position).get("ada"));
 		MainActivity temp = (MainActivity) getActivity();
-		temp.showDetails(values.get(position).get("id"),0);
+		temp.showDetails(values.get(position).get("id"), 0);
 	}
 
 }

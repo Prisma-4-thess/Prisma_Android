@@ -54,11 +54,11 @@ public class DetailFragment extends Fragment {
 		return rootView;
 	}
 
-	private class AddGeoListener implements View.OnClickListener{
+	private class AddGeoListener implements View.OnClickListener {
 
 		@Override
 		public void onClick(View v) {
-			getActivity().startActivityForResult(new Intent(getActivity(), SelectLocationActivity.class),1);
+			getActivity().startActivityForResult(new Intent(getActivity(), SelectLocationActivity.class), 1);
 		}
 	}
 
@@ -99,7 +99,7 @@ public class DetailFragment extends Fragment {
 				map.put("unit", "NAN");
 				map.put("doc_url", "NAN");
 				map.put("org", "NAN");
-				map.put("geo","false");
+				map.put("geo", "false");
 				for (int i = 0; i < jArray.length(); i++) {
 					JSONObject childJSONObject = jArray.getJSONObject(i);
 					String ada = childJSONObject.getString("ada");
@@ -112,7 +112,7 @@ public class DetailFragment extends Fragment {
 					map.put("unit", unit);
 					map.put("doc_url", doc_url);
 					map.put("org", org);
-					if (childJSONObject.getBoolean("geo")) map.put("geo","true");
+					if (childJSONObject.getBoolean("geo")) map.put("geo", "true");
 				}
 				updateUI(map);
 			} catch (JSONException e) {
@@ -138,7 +138,7 @@ public class DetailFragment extends Fragment {
 		organization.setText("Organization");
 		if (getArguments().getBoolean("geo") && map.get("geo").equals("false")) {
 			bAddGeo.setVisibility(View.VISIBLE);
-		} else if (getArguments().getBoolean("geo") && map.get("geo").equals("true")){
+		} else if (getArguments().getBoolean("geo") && map.get("geo").equals("true")) {
 			tv6.setVisibility(View.VISIBLE);
 		}
 		pDialog.dismiss();

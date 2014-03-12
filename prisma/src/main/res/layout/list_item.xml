@@ -17,7 +17,9 @@
         android:id="@+id/list_text"
         android:gravity="center_vertical"
         android:background="@android:color/white"
-        android:layout_height="@android:dimen/app_icon_size"/>
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_width="fill_parent"
@@ -27,13 +29,25 @@
         android:textSize="14sp"
         android:layout_marginRight="5dp"
         android:paddingLeft="10dp"
+        android:id="@+id/main_list_address"
+        android:gravity="center_vertical"
+        android:background="@android:color/white"
+        android:paddingBottom="5dp"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@id/main_list_address"
+        android:textSize="14sp"
+        android:layout_marginRight="5dp"
+        android:paddingLeft="40dp"
         android:id="@+id/list_id"
         android:gravity="center_vertical"
         android:background="@android:color/white"
         android:paddingBottom="5dp"
         android:layout_marginBottom="5dp"
         android:layout_height="wrap_content"/>
-
 
 
 </RelativeLayout>

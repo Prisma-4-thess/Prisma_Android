@@ -13,14 +13,15 @@
         android:id="@id/android:list">
     </ListView>
 
-    <TextView android:id="@id/android:empty"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:textStyle="bold"
-              android:textSize="30sp"
-              android:gravity="center_vertical|center_horizontal"
-              android:background="@android:color/darker_gray"
-              android:layout_below="@id/android:list"/>
+    <TextView
+        android:id="@id/android:empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/android:list"/>
 
 
 </RelativeLayout>
