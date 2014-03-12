@@ -277,7 +277,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 		}
 
 		private void serverRequest() {
-			String url = "http://83.212.109.124/Prisma/android/index";
+			String url = "http://83.212.109.124/Prisma/android/all";
 			aq.ajax(url, JSONObject.class, this, "jsonCallback");
 		}
 
