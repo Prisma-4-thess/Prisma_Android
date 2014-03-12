@@ -65,13 +65,28 @@ public class SelectLocationActivity extends ActionBarActivity {
 		if (googleMap == null) {
 			googleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
 					R.id.map)).getMap();
-
+			googleMap.setOnMapLongClickListener(new ListenForLongClick());
 			// check if map is created successfully or not
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
 						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
 						.show();
 			}
+		}
+	}
+
+	private class ListenForLongClick implements GoogleMap.OnMapLongClickListener{
+
+		@Override
+		public void onMapLongClick(LatLng latLng) {
+			if (myMarker!=null) myMarker.remove();
+			MarkerOptions marker = new MarkerOptions().position(latLng).title("Hello Maps ");
+			myMarker = googleMap.addMarker(marker);
+
+			CameraPosition cameraPosition = new CameraPosition.Builder().target(
+					latLng).zoom(12).build();
+
+			googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 		}
 	}
 
@@ -192,8 +207,10 @@ public class SelectLocationActivity extends ActionBarActivity {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.put("namegrk", namegrk);
 						map.put("id", id);
+						map.put("latitude",lat.toString());
+						map.put("longitude",lont.toString());
 						temp.add(map);
-						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
+//						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
 						//						}
 					}
 					updateList(temp);
@@ -223,7 +240,10 @@ public class SelectLocationActivity extends ActionBarActivity {
 		public void onListItemClick(ListView l, View v, int position, long id) {
 			// do something with the data
 			Log.d(TAG, "Item " + position + " pressed!");
-			mAct.addMarker(40,22);
+			String lat = values.get(position).get("latitude");
+			String lont = values.get(position).get("longitude");
+			Log.d(TAG,lat+" "+lont);
+			mAct.addMarker(Double.parseDouble(lat),Double.parseDouble(lont));
 		}
 
 

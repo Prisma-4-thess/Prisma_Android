@@ -328,6 +328,8 @@ public class MainActivity extends ActionBarActivity {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.put("namegrk", namegrk);
 						map.put("id", id);
+						map.put("latitute",lat.toString());
+						map.put("longitude",lont.toString());
 						temp.add(map);
 						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
 						//						}
