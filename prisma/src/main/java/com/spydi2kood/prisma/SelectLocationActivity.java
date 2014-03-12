@@ -1,11 +1,14 @@
 package com.spydi2kood.prisma;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -90,6 +93,25 @@ public class SelectLocationActivity extends ActionBarActivity {
 		}
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		if (id == R.id.accept_location) {
+			sendNewGeoData();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void sendNewGeoData() {
+		Toast.makeText(this,"Data Send!",Toast.LENGTH_LONG).show();
+		Intent returnIntent = new Intent();
+		setResult(RESULT_OK, returnIntent);
+		finish();
+	}
+
+
+
 	public void addMarker(double latitude, double longitude){
 		if (myMarker!=null) myMarker.remove();
 		MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Hello Maps ");
@@ -107,6 +129,14 @@ public class SelectLocationActivity extends ActionBarActivity {
 	protected void onResume() {
 		super.onResume();
 		initilizeMap();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
 
 
@@ -127,6 +157,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 
 		public PlaceholderFragment() {
 		}
+
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
