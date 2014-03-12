@@ -1,6 +1,7 @@
 package com.spydi2kood.prisma;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
@@ -17,7 +19,6 @@ import com.androidquery.callback.AjaxStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -33,6 +34,7 @@ public class DetailFragment extends Fragment {
 	ProgressDialog pDialog;
 	private TextView organization;
 	private TextView unit;
+	private Button bAddGeo;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +43,8 @@ public class DetailFragment extends Fragment {
 		unit = (TextView) rootView.findViewById(R.id.unit);
 		organization = (TextView) rootView.findViewById(R.id.organization);
 		error = (TextView) rootView.findViewById(android.R.id.empty);
+		bAddGeo = (Button) rootView.findViewById(R.id.button_add_geo);
+		bAddGeo.setOnClickListener(new AddGeoListener());
 		tv1 = (TextView) rootView.findViewById(R.id.textView);
 		tv2 = (TextView) rootView.findViewById(R.id.textView2);
 		tv3 = (TextView) rootView.findViewById(R.id.textView3);
@@ -48,6 +52,14 @@ public class DetailFragment extends Fragment {
 		tv5 = (TextView) rootView.findViewById(R.id.textView5);
 		tv6 = (TextView) rootView.findViewById(R.id.textView6);
 		return rootView;
+	}
+
+	private class AddGeoListener implements View.OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			startActivityForResult(new Intent(getActivity(), SelectLocationActivity.class),1);
+		}
 	}
 
 	@Override
@@ -125,11 +137,9 @@ public class DetailFragment extends Fragment {
 		unit.setText("Unit");
 		organization.setText("Organization");
 		if (getArguments().getBoolean("geo") && map.get("geo").equals("false")) {
-			tv6.setVisibility(View.VISIBLE);
-			tv6.setMovementMethod(LinkMovementMethod.getInstance());
+			bAddGeo.setVisibility(View.VISIBLE);
 		} else if (getArguments().getBoolean("geo") && map.get("geo").equals("true")){
 			tv6.setVisibility(View.VISIBLE);
-			tv6.setText("Location already set!");
 		}
 		pDialog.dismiss();
 	}

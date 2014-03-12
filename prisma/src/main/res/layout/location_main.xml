@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:weightSum="2"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@android:color/white"
+                 android:layout_weight="1"
+                 android:id="@+id/location_list"
+                 tools:context="com.spydi2kood.prisma.SelectLocationActivity">
+
+    </FrameLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 xmlns:tools="http://schemas.android.com/tools"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:background="@android:color/white"
+                 android:id="@+id/location_map"
+                 android:layout_weight="1"
+                 tools:context="com.spydi2kood.prisma.SelectLocationActivity">
+
+    </FrameLayout>
+
+</LinearLayout>

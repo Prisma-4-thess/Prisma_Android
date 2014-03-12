@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Closed</string>
+    <string name="location_add">Επιλογή Θέσης</string>
 
 </resources>

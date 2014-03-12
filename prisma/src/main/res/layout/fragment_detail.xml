@@ -81,6 +81,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView6"
         android:visibility="gone"
+        android:text="Location already set!"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_add_geo"
+        android:visibility="gone"
         android:text="Add Geo"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
