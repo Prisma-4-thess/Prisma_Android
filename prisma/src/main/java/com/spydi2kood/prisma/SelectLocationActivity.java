@@ -11,9 +11,18 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,17 +35,63 @@ import java.util.HashMap;
  * Created by jim on 12/3/2014.
  */
 public class SelectLocationActivity extends ActionBarActivity {
+
+	private GoogleMap googleMap;
+	private Marker myMarker;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.location_main);
+		setContentView(R.layout.activity_location);
+
+		try {
+			initilizeMap();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.location_list, new PlaceholderFragment())
 					.commit();
+//			getSupportFragmentManager().beginTransaction()
+//					.add(R.id.location_map, new MapFragment())
+//					.commit();
 		}
 
+	}
+
+	private void initilizeMap() {
+		if (googleMap == null) {
+			googleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(
+					R.id.map)).getMap();
+
+			// check if map is created successfully or not
+			if (googleMap == null) {
+				Toast.makeText(getApplicationContext(),
+						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
+						.show();
+			}
+		}
+	}
+
+	public void addMarker(double latitude, double longitude){
+		if (myMarker!=null) myMarker.remove();
+		MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude)).title("Hello Maps ");
+
+		// adding marker
+		myMarker = googleMap.addMarker(marker);
+
+		CameraPosition cameraPosition = new CameraPosition.Builder().target(
+				new LatLng(latitude, longitude)).zoom(12).build();
+
+		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		initilizeMap();
 	}
 
 
@@ -45,6 +100,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 	 */
 	public static class PlaceholderFragment extends android.support.v4.app.ListFragment {
 
+		private SelectLocationActivity mAct;
 		private static final String TAG = "ListFragment";
 		AQuery aq;
 		ArrayList<HashMap<String, String>> values;
@@ -76,6 +132,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 			super.onActivityCreated(savedInstanceState);
 
 			if (first_time) {
+				mAct = (SelectLocationActivity) getActivity();
 				prepareList();
 				showDialog();
 				serverRequest();
@@ -166,6 +223,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 		public void onListItemClick(ListView l, View v, int position, long id) {
 			// do something with the data
 			Log.d(TAG, "Item " + position + " pressed!");
+			mAct.addMarker(40,22);
 		}
 
 
