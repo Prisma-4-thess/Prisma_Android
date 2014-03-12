@@ -96,11 +96,11 @@ public class AdaFragment extends android.support.v4.app.ListFragment{
 					JSONObject childJSONObject = jArray.getJSONObject(i);
 					String ada = childJSONObject.getString("ada");
 					String subject = childJSONObject.getString("subject");
-//					String id = childJSONObject.getString("id");
+					String id = childJSONObject.getString("id");
 					HashMap<String, String> map = new HashMap<String, String>();
 					map.put("ada", ada);
 					map.put("subject", subject);
-//					map.put("id", id);
+					map.put("id", id);
 					temp.add(map);
 					Log.d(TAG, "ada = " + ada + " subject: " + subject);
 				}
@@ -130,8 +130,8 @@ public class AdaFragment extends android.support.v4.app.ListFragment{
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// do something with the data
 		Log.d(TAG, "Item " + position + " pressed! Ada: " + values.get(position).get("ada"));
-//		MainActivity temp = (MainActivity) getActivity();
-//		temp.showDetails(values.get(position).get("id"));
+		MainActivity temp = (MainActivity) getActivity();
+		temp.showDetails(values.get(position).get("id"),1);
 	}
 
 }

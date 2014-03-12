@@ -17,6 +17,7 @@ import com.androidquery.callback.AjaxStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 
@@ -28,7 +29,7 @@ public class DetailFragment extends Fragment {
 	private static final String TAG = "DetailFragment";
 	public static final String PID = "ID";
 	AQuery aq;
-	TextView error, tv1, tv2, tv3, tv4, tv5;
+	TextView error, tv1, tv2, tv3, tv4, tv5, tv6;
 	ProgressDialog pDialog;
 	private TextView organization;
 	private TextView unit;
@@ -45,6 +46,7 @@ public class DetailFragment extends Fragment {
 		tv3 = (TextView) rootView.findViewById(R.id.textView3);
 		tv4 = (TextView) rootView.findViewById(R.id.textView4);
 		tv5 = (TextView) rootView.findViewById(R.id.textView5);
+		tv6 = (TextView) rootView.findViewById(R.id.textView6);
 		return rootView;
 	}
 
@@ -85,6 +87,7 @@ public class DetailFragment extends Fragment {
 				map.put("unit", "NAN");
 				map.put("doc_url", "NAN");
 				map.put("org", "NAN");
+				map.put("geo","false");
 				for (int i = 0; i < jArray.length(); i++) {
 					JSONObject childJSONObject = jArray.getJSONObject(i);
 					String ada = childJSONObject.getString("ada");
@@ -97,6 +100,7 @@ public class DetailFragment extends Fragment {
 					map.put("unit", unit);
 					map.put("doc_url", doc_url);
 					map.put("org", org);
+					if (childJSONObject.getBoolean("geo")) map.put("geo","true");
 				}
 				updateUI(map);
 			} catch (JSONException e) {
@@ -120,6 +124,13 @@ public class DetailFragment extends Fragment {
 		tv3.setText(map.get("org"));
 		unit.setText("Unit");
 		organization.setText("Organization");
+		if (getArguments().getBoolean("geo") && map.get("geo").equals("false")) {
+			tv6.setVisibility(View.VISIBLE);
+			tv6.setMovementMethod(LinkMovementMethod.getInstance());
+		} else if (getArguments().getBoolean("geo") && map.get("geo").equals("true")){
+			tv6.setVisibility(View.VISIBLE);
+			tv6.setText("Location already set!");
+		}
 		pDialog.dismiss();
 	}
 

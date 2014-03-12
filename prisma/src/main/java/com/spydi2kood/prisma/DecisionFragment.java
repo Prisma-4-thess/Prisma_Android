@@ -148,7 +148,7 @@ public class DecisionFragment extends ListFragment {
 		// do something with the data
 		Log.d(TAG, "Item " + position + " pressed! Ada: " + values.get(position).get("ada"));
 		MainActivity temp = (MainActivity) getActivity();
-		temp.showDetails(values.get(position).get("id"));
+		temp.showDetails(values.get(position).get("id"),0);
 	}
 
 }

@@ -208,11 +208,12 @@ public class MainActivity extends ActionBarActivity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-	public void showDetails(String id) {
+	public void showDetails(String id, int temp) {
 		DetailFragment newFragment = new DetailFragment();
 		Bundle args = new Bundle();
 		args.putString(DetailFragment.PID, id);
 		newFragment.setArguments(args);
+		if (temp==1) args.putBoolean("geo",true);
 
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
