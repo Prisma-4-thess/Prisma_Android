@@ -102,9 +102,16 @@ public class SelectLocationActivity extends ActionBarActivity {
 			predefined = false;
 			CameraPosition cameraPosition = new CameraPosition.Builder().target(
 					latLng).zoom(18).build();
-
+			updateSpecList();
 			googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 		}
+	}
+
+	private void updateSpecList() {
+		double latitude = myMarker.getPosition().latitude;
+		double longitude = myMarker.getPosition().longitude;
+		PlaceholderFragment fragment = (PlaceholderFragment) getSupportFragmentManager().findFragmentById(R.id.location_list);
+		fragment.changeList(latitude,longitude);
 	}
 
 	@Override
@@ -221,6 +228,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 		private static final String TAG = "ListFragment";
 		AQuery aq;
 		ArrayList<HashMap<String, String>> values;
+		ArrayList<HashMap<String, String>> allValues;
 		//		ArrayAdapter<String> adapter;
 		SimpleAdapter geoAdapter;
 		ProgressDialog pDialog;
@@ -228,6 +236,18 @@ public class SelectLocationActivity extends ActionBarActivity {
 		private boolean first_time;
 
 		public PlaceholderFragment() {
+		}
+
+		public void changeList(double latitude, double longitude){
+			values.clear();
+			for (HashMap<String,String> item : allValues){
+				double lat = Double.parseDouble(item.get("latitude"));
+				double lont = Double.parseDouble(item.get("longitude"));
+				if (Math.abs(lat-latitude)<0.001 && Math.abs(lont-longitude)<0.001){
+					values.add(item);
+				}
+			}
+			geoAdapter.notifyDataSetChanged();
 		}
 
 
@@ -275,6 +295,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 			String[] from = new String[]{"namegrk", "id"};
 			int[] to = new int[]{R.id.list_text, R.id.list_id};
 			values = new ArrayList<HashMap<String, String>>();
+			allValues = new ArrayList<HashMap<String, String>>();
 			//			adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item,
 			//					R.id.list_text, values);
 			geoAdapter = new SimpleAdapter(getActivity(), values, R.layout.list_item, from, to);
@@ -336,6 +357,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 			values.clear();
 			for (HashMap<String, String> element : temp) {
 				values.add(element);
+				allValues.add(element);
 			}
 		}
 
