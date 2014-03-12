@@ -354,7 +354,7 @@ public class MainActivity extends ActionBarActivity {
 						map.put("id", id);
 						map.put("latitute",lat.toString());
 						map.put("longitude",lont.toString());
-						temp.add(map);
+						if (childJSONObject.getInt("counter")>0) temp.add(map);
 						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
 						//						}
 					}
