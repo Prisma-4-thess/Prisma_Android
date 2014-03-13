@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
@@ -170,7 +171,8 @@ public class MainActivity extends ActionBarActivity {
 		if (requestCode == 1) {
 			if (resultCode == RESULT_OK) {
 				Log.d(TAG, "All is ok");
-				Log.d(TAG, data.getStringExtra("id"));
+				Log.d(TAG, data.getStringExtra("gid")+ " "+data.getStringExtra("did"));
+				updateDecData(data.getStringExtra("gid"),data.getStringExtra("did"));
 			} else if (resultCode == RESULT_CANCELED) {
 				Log.d(TAG, "Nothing is ok");
 			} else if (resultCode == 2) {
@@ -183,6 +185,29 @@ public class MainActivity extends ActionBarActivity {
 				}
 				Log.d(TAG, data.getStringExtra("address") + " " + data.getStringExtra("namegrk") + " " + data.getStringExtra("latitude") + " " + data.getStringExtra("longitude") + " ");
 			}
+		}
+	}
+
+	private void updateDecData(String gid,String did) {
+		AQuery aq = new AQuery(this);
+		String url = "http://83.212.109.124/Prisma/android/predef";
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("gid", gid);
+		param.put("did", did);
+		aq.ajax(url,param, JSONObject.class, this, "sendNewData");
+		Log.d(TAG,"update decision data");
+	}
+
+	public void sendNewData(String url, JSONObject json, AjaxStatus status) {
+		Log.d(TAG,"sendNewData");
+		if (json != null) {
+			try {
+				Toast.makeText(this,json.getString("status"),Toast.LENGTH_LONG).show();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		} else {
+			Toast.makeText(this,"Something went wrong...",Toast.LENGTH_LONG).show();
 		}
 	}
 

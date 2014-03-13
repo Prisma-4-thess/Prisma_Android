@@ -47,6 +47,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 	private Marker myMarker;
 	private Boolean predefined;
 	private HashMap<String, String> locDet;
+	private String did;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class SelectLocationActivity extends ActionBarActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		did = getIntent().getStringExtra("id");
 
 		locDet = new HashMap<String, String>();
 
@@ -128,7 +131,9 @@ public class SelectLocationActivity extends ActionBarActivity {
 			Log.d(TAG, "Latitude: " + Double.toString(myMarker.getPosition().latitude) + " Longitude: " + Double.toString(myMarker.getPosition().longitude));
 			if (predefined) {
 				//				Toast.makeText(this,"Predefined Location",Toast.LENGTH_LONG).show();
-				returnIntent.putExtra("id", locDet.get("id"));
+				Log.d(TAG,locDet.get("id"));
+				returnIntent.putExtra("gid", locDet.get("id"));
+				returnIntent.putExtra("did", did);
 				setResult(RESULT_OK, returnIntent);
 				finish();
 			} else {

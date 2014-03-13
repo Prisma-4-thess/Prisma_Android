@@ -35,6 +35,7 @@ public class DetailFragment extends Fragment {
 	private TextView organization;
 	private TextView unit;
 	private Button bAddGeo;
+	private String pid;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,7 +59,9 @@ public class DetailFragment extends Fragment {
 
 		@Override
 		public void onClick(View v) {
-			getActivity().startActivityForResult(new Intent(getActivity(), SelectLocationActivity.class), 1);
+			Intent intent = new Intent(getActivity(), SelectLocationActivity.class);
+			intent.putExtra("id",pid);
+			getActivity().startActivityForResult(intent, 1);
 		}
 	}
 
@@ -79,7 +82,7 @@ public class DetailFragment extends Fragment {
 
 	private void serverRequest() {
 		Bundle args = getArguments();
-		String pid = args.getString(PID);
+		pid = args.getString(PID);
 		Log.d(TAG, pid);
 		String url = "http://83.212.109.124/Prisma/android/show/";
 		HashMap<String, String> param = new HashMap<String, String>();
