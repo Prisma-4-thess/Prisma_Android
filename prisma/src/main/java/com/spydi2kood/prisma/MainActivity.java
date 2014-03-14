@@ -202,7 +202,11 @@ public class MainActivity extends ActionBarActivity {
 		Log.d(TAG,"sendNewData");
 		if (json != null) {
 			try {
-				Toast.makeText(this,json.getString("status"),Toast.LENGTH_LONG).show();
+				if (json.getString("status").equals("success")){
+					Toast.makeText(this,"Geo suggestion added",Toast.LENGTH_LONG).show();
+				} else if (json.getString("status").equals("fail")){
+					Toast.makeText(this,"Already suggested",Toast.LENGTH_LONG).show();
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
