@@ -183,9 +183,14 @@ public class MainActivity extends ActionBarActivity {
 				if (data.getStringExtra("namegrk").equals("")) {
 					Log.d(TAG, "NULL");
 				}
+				updateUserData();
 				Log.d(TAG, data.getStringExtra("address") + " " + data.getStringExtra("namegrk") + " " + data.getStringExtra("latitude") + " " + data.getStringExtra("longitude") + " ");
 			}
 		}
+	}
+
+	private void updateUserData() {
+
 	}
 
 	private void updateDecData(String gid,String did) {
