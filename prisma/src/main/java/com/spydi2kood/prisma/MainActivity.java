@@ -190,7 +190,15 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	private void updateUserData(Intent data) {
-
+		AQuery aq = new AQuery(this);
+		String url = "http://83.212.109.124/Prisma/android/userdef";
+		HashMap<String, String> param = new HashMap<String, String>();
+		param.put("lat", data.getStringExtra("latitude"));
+		param.put("lng", data.getStringExtra("longitude"));
+		param.put("ngrk", data.getStringExtra("namegrk"));
+		param.put("adr", data.getStringExtra("address"));
+		param.put("did", data.getStringExtra("did"));
+		aq.ajax(url, param, JSONObject.class, this, "sendNewData");
 	}
 
 	private void updateDecData(String gid,String did) {
