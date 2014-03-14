@@ -98,7 +98,7 @@ public class AdaFragment extends android.support.v4.app.ListFragment {
 					if (childJSONObject.getBoolean("geo")) map.put("geo", "true");
 					else map.put("geo", "false");
 					temp.add(map);
-					Log.d(TAG, "ada = " + ada + " subject: " + subject);
+					if (Prisma.debugging) Log.d(TAG, "ada = " + ada + " subject: " + subject);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -125,7 +125,7 @@ public class AdaFragment extends android.support.v4.app.ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// do something with the data
-		Log.d(TAG, "Item " + position + " pressed! Ada: " + values.get(position).get("ada"));
+		if (Prisma.debugging) Log.d(TAG, "Item " + position + " pressed! Ada: " + values.get(position).get("ada"));
 		MainActivity temp = (MainActivity) getActivity();
 		temp.showDetails(values.get(position).get("id"), 1);
 	}

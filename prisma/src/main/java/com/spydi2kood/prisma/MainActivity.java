@@ -216,15 +216,15 @@ public class MainActivity extends ActionBarActivity {
 		if (json != null) {
 			try {
 				if (json.getString("status").equals("success")){
-					Toast.makeText(this,"Υποβολή επιτυχής",Toast.LENGTH_LONG).show();
+					Toast.makeText(this,"Geo suggestion added",Toast.LENGTH_LONG).show();
 				} else if (json.getString("status").equals("fail")){
-					Toast.makeText(this,"Η καταχώρηση υπάρχει ήδη.",Toast.LENGTH_LONG).show();
+					Toast.makeText(this,"Already suggested",Toast.LENGTH_LONG).show();
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		} else {
-			Toast.makeText(this,"Παρακαλώ προσπαθήστε ξανά...",Toast.LENGTH_LONG).show();
+			Toast.makeText(this,"Something went wrong...",Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -346,7 +346,7 @@ public class MainActivity extends ActionBarActivity {
 
 		private void showDialog() {
 			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Φόρτωση. Παρακαλώ περιμένετε...");
+			pDialog.setMessage("Loading. Please wait...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(false);
 			pDialog.show();
@@ -389,7 +389,6 @@ public class MainActivity extends ActionBarActivity {
 						Double lont = childJSONObject.getDouble("longitude");
 						String counter = childJSONObject.getString("counter");
 						String address = childJSONObject.getString("address");
-						if (address.equals("null")) address="Διεύθυνση μη ορισμένη";
 						//						if (Math.abs(lat - 40.60681615178682) < 0.01 && Math.abs(lont - 22.982468830602212) < 0.01) {
 						HashMap<String, String> map = new HashMap<String, String>();
 						map.put("namegrk", namegrk);

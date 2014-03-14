@@ -84,7 +84,7 @@ public class AddGeo extends Fragment {
 	}
 
 	private void serverRequest(String ada) {
-		Log.d(TAG, ada);
+		if (Prisma.debugging) Log.d(TAG, ada);
 		String url = "http://83.212.109.124/Prisma/android/ada/".concat(ada);
 		aq.ajax(url, JSONObject.class, this, "jsonCallback");
 	}
@@ -94,9 +94,9 @@ public class AddGeo extends Fragment {
 			mAct.setsJson(json);
 			pDialog.dismiss();
 			mAct.showAdaDecision();
-			Log.d(TAG, json.toString());
+			if (Prisma.debugging) Log.d(TAG, json.toString());
 		} else {
-			Log.d(TAG, status.getMessage());
+			if (Prisma.debugging) Log.d(TAG, status.getMessage());
 			pDialog.dismiss();
 			Toast.makeText(getActivity(), status.getMessage(), Toast.LENGTH_LONG).show();
 			//			error.setText(status.getMessage());

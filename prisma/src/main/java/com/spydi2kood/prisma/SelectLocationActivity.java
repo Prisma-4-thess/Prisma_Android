@@ -128,10 +128,11 @@ public class SelectLocationActivity extends ActionBarActivity {
 	private void sendNewGeoData() {
 		if (myMarker != null) {
 			Intent returnIntent = new Intent();
-			Log.d(TAG, "Latitude: " + Double.toString(myMarker.getPosition().latitude) + " Longitude: " + Double.toString(myMarker.getPosition().longitude));
+			if (Prisma.debugging)
+				Log.d(TAG, "Latitude: " + Double.toString(myMarker.getPosition().latitude) + " Longitude: " + Double.toString(myMarker.getPosition().longitude));
 			if (predefined) {
 				//				Toast.makeText(this,"Predefined Location",Toast.LENGTH_LONG).show();
-				Log.d(TAG,locDet.get("id"));
+				if (Prisma.debugging) Log.d(TAG, locDet.get("id"));
 				returnIntent.putExtra("gid", locDet.get("id"));
 				returnIntent.putExtra("did", did);
 				setResult(RESULT_OK, returnIntent);
@@ -308,11 +309,11 @@ public class SelectLocationActivity extends ActionBarActivity {
 
 		public void jsonCallback(String url, JSONObject json, AjaxStatus status) {
 			if (json != null) {
-				//				Log.d(TAG, json.toString());
+				//				if (Prisma.debugging) Log.d(TAG, json.toString());
 				new readJSON().execute(json);
 
 			} else {
-				Log.d(TAG, status.getMessage());
+				if (Prisma.debugging) Log.d(TAG, status.getMessage());
 				error.setText(status.getMessage());
 				pDialog.dismiss();
 			}
@@ -338,7 +339,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 						map.put("latitude", lat.toString());
 						map.put("longitude", lont.toString());
 						temp.add(map);
-						//						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
+						//						if (Prisma.debugging) Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
 						//						}
 					}
 					updateList(temp);
@@ -368,10 +369,10 @@ public class SelectLocationActivity extends ActionBarActivity {
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
 			// do something with the data
-			Log.d(TAG, "Item " + position + " pressed!");
+			if (Prisma.debugging) Log.d(TAG, "Item " + position + " pressed!");
 			String lat = values.get(position).get("latitude");
 			String lont = values.get(position).get("longitude");
-			Log.d(TAG, lat + " " + lont);
+			if (Prisma.debugging) Log.d(TAG, lat + " " + lont);
 			mAct.addMarker(values.get(position));
 		}
 

@@ -64,7 +64,7 @@ public class DecisionFragment extends ListFragment {
 	private void serverRequest() {
 		Bundle args = getArguments();
 		String pid = args.getString(PID);
-		Log.d(TAG, pid);
+		if (Prisma.debugging) Log.d(TAG, pid);
 		String url = "http://83.212.109.124/Prisma/android/rgeo/";
 		HashMap<String, String> param = new HashMap<String, String>();
 		param.put("id", pid);
@@ -94,7 +94,7 @@ public class DecisionFragment extends ListFragment {
 			new readJSON().execute(json);
 			error.setText("Καμία απόφαση");
 		} else {
-			Log.d(TAG, status.getMessage());
+			if (Prisma.debugging) Log.d(TAG, status.getMessage());
 			error.setText(status.getMessage());
 			pDialog.dismiss();
 		}
@@ -117,7 +117,7 @@ public class DecisionFragment extends ListFragment {
 					map.put("subject", subject);
 					map.put("id", id);
 					temp.add(map);
-					Log.d(TAG, "ada = " + ada + " subject: " + subject);
+					if (Prisma.debugging) Log.d(TAG, "ada = " + ada + " subject: " + subject);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -144,7 +144,7 @@ public class DecisionFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// do something with the data
-		Log.d(TAG, "Item " + position + " pressed! Ada: " + values.get(position).get("ada"));
+		if (Prisma.debugging) Log.d(TAG, "Item " + position + " pressed! Ada: " + values.get(position).get("ada"));
 		MainActivity temp = (MainActivity) getActivity();
 		temp.showDetails(values.get(position).get("id"), 0);
 	}

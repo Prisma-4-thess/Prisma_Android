@@ -60,7 +60,7 @@ public class DetailFragment extends Fragment {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent(getActivity(), SelectLocationActivity.class);
-			intent.putExtra("id",pid);
+			intent.putExtra("id", pid);
 			getActivity().startActivityForResult(intent, 1);
 		}
 	}
@@ -83,7 +83,7 @@ public class DetailFragment extends Fragment {
 	private void serverRequest() {
 		Bundle args = getArguments();
 		pid = args.getString(PID);
-		Log.d(TAG, pid);
+		if (Prisma.debugging) Log.d(TAG, pid);
 		String url = "http://83.212.109.124/Prisma/android/show/";
 		HashMap<String, String> param = new HashMap<String, String>();
 		param.put("id", pid);
@@ -92,7 +92,7 @@ public class DetailFragment extends Fragment {
 
 	public void jsonCallback(String url, JSONObject json, AjaxStatus status) {
 		if (json != null) {
-			//				Log.d(TAG, json.toString());
+			//				if (Prisma.debugging) Log.d(TAG, json.toString());
 			JSONArray jArray = null;
 			try {
 				jArray = json.getJSONArray("marker");
@@ -122,7 +122,7 @@ public class DetailFragment extends Fragment {
 				e.printStackTrace();
 			}
 		} else {
-			Log.d(TAG, status.getMessage());
+			if (Prisma.debugging) Log.d(TAG, status.getMessage());
 			error.setText(status.getMessage());
 			pDialog.dismiss();
 		}
