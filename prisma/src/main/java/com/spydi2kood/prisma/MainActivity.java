@@ -395,8 +395,11 @@ public class MainActivity extends ActionBarActivity {
 						map.put("id", id);
 						map.put("latitute", lat.toString());
 						map.put("longitude", lont.toString());
-						map.put("counter", counter);
-						map.put("address", address);
+						map.put("counter", "Πλήθος Αποφάσεων: ".concat(counter));
+						if (address.equals("null")) {
+							map.put("address", "Μη ορισμένη διεύθυνση");
+						} else
+							map.put("address", address);
 						temp.add(map);
 						Log.d(TAG, "namegrk = " + namegrk + " lat = " + lat + " long = " + lont);
 						//						}
