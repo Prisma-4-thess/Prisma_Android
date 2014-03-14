@@ -175,6 +175,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 						returnIntent.putExtra("namegrk", sNamegrk);
 						returnIntent.putExtra("latitude", latitude);
 						returnIntent.putExtra("longitude", longitude);
+						returnIntent.putExtra("did",did);
 						setResult(2, returnIntent);
 						dialog.dismiss();
 						finish();
