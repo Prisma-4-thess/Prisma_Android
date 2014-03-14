@@ -204,7 +204,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 		this.locDet = locDet;
 		CameraPosition cameraPosition = new CameraPosition.Builder().target(
 				new LatLng(latitude, longitude)).zoom(16).build();
-
+		updateSpecList();
 		googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 	}
 
