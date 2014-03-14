@@ -149,7 +149,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 	}
 
 	public void errorFields() {
-		Toast.makeText(this, "Check fields again!", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Λάθος Ονομασία", Toast.LENGTH_LONG).show();
 	}
 
 	private void uploadLocationInfo() {
@@ -167,7 +167,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 						String sNamegrk = namegrk.getText().toString();
 						String latitude = Double.toString(myMarker.getPosition().latitude);
 						String longitude = Double.toString(myMarker.getPosition().longitude);
-						if (sNamegrk.equals("") || sAddress.equals("")) {
+						if (sNamegrk.trim().equals("")) {
 							errorFields();
 							return;
 						}
