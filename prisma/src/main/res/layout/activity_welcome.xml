@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search with location"
+        android:text="@string/search_with_location"
         android:gravity="center"
         android:textStyle="italic"
         android:layout_marginBottom="70dp"
@@ -41,7 +41,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Define decision's location"
+        android:text="@string/define_location"
         android:textSize="20sp"
         android:textStyle="italic"
         android:gravity="center"

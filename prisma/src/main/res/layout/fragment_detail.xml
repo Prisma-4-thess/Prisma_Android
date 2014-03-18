@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView6"
         android:visibility="gone"
-        android:text="Location already set!"
+        android:text="@string/lacation_already_set"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/button_add_geo"
         android:visibility="gone"
-        android:text="Add Geo"
+        android:text="@string/add_geo"
         android:layout_below="@+id/textView5"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>

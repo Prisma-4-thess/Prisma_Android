@@ -67,13 +67,13 @@ public class AdaFragment extends android.support.v4.app.ListFragment {
 		adaAdapter = new CustomAdaAdapter(getActivity(), values, R.layout.decision_item, from, to);
 		setListAdapter(adaAdapter);
 		new addList().execute(mAct.getsJson());
-		error.setText("No decisions");
+		error.setText("Καμία απόφαση");
 	}
 
 
 	private void showDialog() {
 		pDialog = new ProgressDialog(getActivity());
-		pDialog.setMessage("Loading. Please wait...");
+		pDialog.setMessage("Φόρτωση. Παρακαλώ περιμένετε...");
 		pDialog.setIndeterminate(false);
 		pDialog.setCancelable(false);
 		pDialog.show();

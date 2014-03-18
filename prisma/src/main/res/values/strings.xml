@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Πρίσμα</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Prisma</string>
     <string name="accept_location">Αποδοχή</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Closed</string>
     <string name="location_add">Επιλογή Θέσης</string>
-    <string name="dialog_address">Διεύθυνση...</string>
-    <string name="dialog_namegrk">Ονομασία...</string>
+    <string name="dialog_address">Διεύθυνση…</string>
+    <string name="dialog_namegrk">Ονομασία…</string>
     <string name="uploadPassword">Αποδοχή</string>
     <string name="cancelUploadPassword">Απόρριψη</string>
+    <string name="search_with_location">Αναζήτηση βάσει θέσης</string>
+    <string name="define_location">Καταχώρηση θέσης απόφασης</string>
+    <string name="lacation_already_set">Η θέση αυτή έχει ήδη καταχωρηθεί!</string>
+    <string name="add_geo">Προσθήκη θέσης</string>
+    <string name="ada">ΑΔΑ</string>
+    <string name="insert_ada">Εισάγετε το ΑΔΑ…</string>
+    <string name="search">Αναζήτηση</string>
+    <string name="info">Πληροφορίες</string>
 
 </resources>

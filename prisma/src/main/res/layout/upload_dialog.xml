@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/dialog_title"
         android:layout_width="match_parent"
-        android:text="Πληροφορίες"
+        android:text="@string/info"
         android:layout_height="64dp"
         android:textSize="22sp"
         android:gravity="center"

@@ -83,7 +83,7 @@ public class DecisionFragment extends ListFragment {
 
 	private void showDialog() {
 		pDialog = new ProgressDialog(getActivity());
-		pDialog.setMessage("Loading. Please wait...");
+		pDialog.setMessage("Φόρτωση. Παρακαλώ περιμένετε...");
 		pDialog.setIndeterminate(false);
 		pDialog.setCancelable(false);
 		pDialog.show();
@@ -92,7 +92,7 @@ public class DecisionFragment extends ListFragment {
 	public void jsonCallback(String url, JSONObject json, AjaxStatus status) {
 		if (json != null) {
 			new readJSON().execute(json);
-			error.setText("No decisions");
+			error.setText("Καμία απόφαση");
 		} else {
 			Log.d(TAG, status.getMessage());
 			error.setText(status.getMessage());

@@ -12,21 +12,21 @@
         android:textColor="@color/LightSlateGray"
         android:layout_centerHorizontal="true"
         android:textSize="40sp"
-        android:text="ΑΔΑ"
+        android:text="@string/ada"
         android:id="@+id/ada_text"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/entered_ada"
-        android:hint="Εισάγετε το ΑΔΑ..."
+        android:hint="@string/insert_ada"
         android:layout_below="@id/ada_text"
         android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Αναζήτηση"
+        android:text="@string/search"
         android:id="@+id/button_search"
         android:layout_below="@+id/entered_ada"
         android:layout_centerHorizontal="true"/>

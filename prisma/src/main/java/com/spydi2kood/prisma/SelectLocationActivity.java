@@ -87,7 +87,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 			// check if map is created successfully or not
 			if (googleMap == null) {
 				Toast.makeText(getApplicationContext(),
-						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
+						"Λυπούμαστε! Αδυναμία φόρτωσης χάρτη", Toast.LENGTH_SHORT)
 						.show();
 			}
 		}
@@ -289,7 +289,7 @@ public class SelectLocationActivity extends ActionBarActivity {
 
 		private void showDialog() {
 			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Loading. Please wait...");
+			pDialog.setMessage("Φόρτωση. Παρακαλώ περιμένετε...");
 			pDialog.setIndeterminate(false);
 			pDialog.setCancelable(false);
 			pDialog.show();

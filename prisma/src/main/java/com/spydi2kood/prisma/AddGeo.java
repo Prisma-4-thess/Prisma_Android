@@ -77,7 +77,7 @@ public class AddGeo extends Fragment {
 
 	private void showDialog() {
 		pDialog = new ProgressDialog(getActivity());
-		pDialog.setMessage("Loading. Please wait...");
+		pDialog.setMessage("Φόρτωση. Παρακαλώ περιμένετε...");
 		pDialog.setIndeterminate(false);
 		pDialog.setCancelable(false);
 		pDialog.show();
